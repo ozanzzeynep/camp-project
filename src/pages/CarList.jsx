@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Label, Menu, Table } from "semantic-ui-react";
+import { Icon, Menu, Table } from "semantic-ui-react";
 import CarService from "../services/CarService";
 
 export default function CarList() {
@@ -9,32 +9,35 @@ export default function CarList() {
   //Yani sayfa yüklendiğinde yapar.
   useEffect(() => {
     let carService = new CarService();
-    carService.getCars().then((result) => setCars(result.data.data));
-  });
+    carService.getCars().then((result) =>{
+      setCars(result.data);
+    } );
+  },[]);
 
   return (
     <div>
       <Table celled>
         <Table.Header>
           <Table.Row>
-          <Table.Cell>Brand</Table.Cell>
-              <Table.Cell>Model</Table.Cell>
-              <Table.Cell>Year</Table.Cell>
-              <Table.Cell>Price</Table.Cell>
-              <Table.Cell>Available</Table.Cell>
+            <Table.HeaderCell>Brand</Table.HeaderCell>
+            <Table.HeaderCell>Model</Table.HeaderCell>
+            <Table.HeaderCell>Year</Table.HeaderCell>
+            <Table.HeaderCell>Price</Table.HeaderCell>
+            <Table.HeaderCell>Available</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {cars.map((car) => (
-            <Table.Row key={car.id}>
-              <Table.Cell>{car.brandName}</Table.Cell>
-              <Table.Cell>{car.model}</Table.Cell>
-              <Table.Cell>{car.year}</Table.Cell>
-              <Table.Cell>{car.price}</Table.Cell>
-              <Table.Cell>{car.available}</Table.Cell>
-            </Table.Row>
-          ))}
+          {
+            cars.map((car) => (
+              <Table.Row key={car.id}>
+                <Table.Cell>{car.brandName}</Table.Cell>
+                <Table.Cell>{car.model}</Table.Cell>
+                <Table.Cell>{car.year}</Table.Cell>
+                <Table.Cell>{car.price}</Table.Cell>
+                <Table.Cell>{String(car.available)}</Table.Cell>
+              </Table.Row>
+            ))}
         </Table.Body>
 
         <Table.Footer>
