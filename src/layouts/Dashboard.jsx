@@ -1,8 +1,11 @@
 import React from "react";
-import Navi from "./Navi";
 import Categories from "./Categories";
 import CarList from "../pages/CarList";
 import { Grid, GridColumn, GridRow } from "semantic-ui-react";
+import { Route, Routes } from "react-router-dom";
+import CarDetail from "../pages/CarDetail";
+import CartDetail from "../pages/CartDetail";
+
 
 export default function Dashboard() {
   return (
@@ -13,7 +16,12 @@ export default function Dashboard() {
             <Categories />
           </GridColumn>
           <GridColumn width={12}>
-            <CarList />
+            <Routes>
+              <Route exact path="/" element={<CarList />} />
+              <Route exact path="/cars" element={<CarList />} />
+              <Route path="/cars/:id" element={<CarDetail />} />
+              <Route path="/cart" element={<CartDetail />} />
+            </Routes>
           </GridColumn>
         </GridRow>
       </Grid>

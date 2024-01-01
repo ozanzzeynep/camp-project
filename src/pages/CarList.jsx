@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Icon, Menu, Table } from "semantic-ui-react";
 import CarService from "../services/CarService";
+import { Link } from "react-router-dom";
 
 export default function CarList() {
   const [cars, setCars] = useState([]);
@@ -31,7 +32,7 @@ export default function CarList() {
           {
             cars.map((car) => (
               <Table.Row key={car.id}>
-                <Table.Cell>{car.brandName}</Table.Cell>
+                <Table.Cell><Link to = {`/cars/${car.id}`}>{car.brandName}</Link></Table.Cell>
                 <Table.Cell>{car.model}</Table.Cell>
                 <Table.Cell>{car.year}</Table.Cell>
                 <Table.Cell>{car.price}</Table.Cell>
