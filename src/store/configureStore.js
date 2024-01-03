@@ -1,7 +1,11 @@
 import rootReducer from "./rootReducer";
-import { legacy_createStore as createStore } from "redux";
+import { configureStore } from '@reduxjs/toolkit'
 
 
-export function configureStore() {
-    return createStore(rootReducer);
-  }
+export default configureStore({
+    reducer:{
+        todos: rootReducer,
+    }
+});
+
+
