@@ -3,7 +3,7 @@ import CartSummary from "./CartSummary";
 import { Container, Menu } from "semantic-ui-react";
 import SignedOut from "./SignedOut";
 import SignedIn from "./SignedIn";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 export default function Navi() {
@@ -27,7 +27,7 @@ export default function Navi() {
     <div>
       <Menu inverted fixed="top">
         <Container>
-          <Menu.Item name="home" />
+          <Menu.Item name="home" as={NavLink} to = "/" />
           <Menu.Item name="messages" />
 
           <Menu.Menu position="right">
