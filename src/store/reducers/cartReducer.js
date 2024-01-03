@@ -1,21 +1,26 @@
-import { ADD_TO_CART } from "../actions/cartAction";
-import { cartItems} from "../initialValues/cartItems"
-
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cartAction";
+import { cartItems } from "../initialValues/cartItems";
 
 
 const initialState = {
-    cartItems:cartItems
+ cartItems : cartItems,
+};
 
-}
+export default function cartReducer(state = initialState, { type, payload }) {
+  switch (type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cartItems : [...state.cartItems, { car: payload }],
+      };
 
-export default function cartReducer(state = initialState,{type,payload} ){
-    switch (type) {
-        case ADD_TO_CART:
-            let car = state.cartItems.find(c => c.car.id === payload.id)
-            break;
-    
-        default:
-            break;
-    }
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((c) => c.car.id !== payload.id),
+      };
 
+    default:
+      return state;
+  }
 }
