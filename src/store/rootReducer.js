@@ -1,11 +1,11 @@
 //Tüm stateleri topladığımız yer.
 
 import { combineReducers } from "redux";
-import cartReducer from "./reducers/cartReducer";
+import CartSlice from "./slices/CartSlice";
 
 
 const rootReducer = combineReducers({
-    cart: cartReducer
+    cart: CartSlice,
 })
 
 export default rootReducer;

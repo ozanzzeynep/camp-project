@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Menu, Table } from "semantic-ui-react";
+import { Button, Icon, Menu, Table, TableCell } from "semantic-ui-react";
 import CarService from "../services/CarService";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addCart } from "../store/slices/cartSlice";
+import { toast } from "react-toastify";
 
 export default function CarList() {
+  const dispatch = useDispatch();
+
   const [cars, setCars] = useState([]);
 
   //Component yüklendiğinde yapılmasını istediğimiz kodu içerisine yazarız.
   //Yani sayfa yüklendiğinde yapar.
   useEffect(() => {
     let carService = new CarService();
-    carService.getCars().then((result) =>{
+    carService.getCars().then((result) => {
       setCars(result.data);
-    } );
-  },[]);
+    });
+  }, []);
+
+  const handleAddToCart = (car) => {
+    dispatch(addCart(car));
+    toast.success(`${car.brandName} sepete eklendi.`)
+  };
 
   return (
     <div>
@@ -25,20 +35,30 @@ export default function CarList() {
             <Table.HeaderCell>Year</Table.HeaderCell>
             <Table.HeaderCell>Price</Table.HeaderCell>
             <Table.HeaderCell>Available</Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {
-            cars.map((car) => (
-              <Table.Row key={car.id}>
-                <Table.Cell><Link to = {`/cars/${car.id}`}>{car.brandName}</Link></Table.Cell>
-                <Table.Cell>{car.model}</Table.Cell>
-                <Table.Cell>{car.year}</Table.Cell>
-                <Table.Cell>{car.price}</Table.Cell>
-                <Table.Cell>{String(car.available)}</Table.Cell>
-              </Table.Row>
-            ))}
+          {cars.map((car) => (
+            <Table.Row key={car.id}>
+              <Table.Cell>
+                <Link to={`/cars/${car.id}`}>{car.brandName}</Link>
+              </Table.Cell>
+              <Table.Cell>{car.model}</Table.Cell>
+              <Table.Cell>{car.year}</Table.Cell>
+              <Table.Cell>{car.price}</Table.Cell>
+              <Table.Cell>{String(car.available)}</Table.Cell>
+              <TableCell>
+                <Button
+                  className="ui button"
+                  onClick={() => handleAddToCart(car)}
+                >
+                  Sepete Ekle
+                </Button>
+              </TableCell>
+            </Table.Row>
+          ))}
         </Table.Body>
 
         <Table.Footer>

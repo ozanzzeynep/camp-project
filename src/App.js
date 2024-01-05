@@ -6,12 +6,13 @@ import Navi from "./layouts/Navi";
 
 function App() {
   return (
-    <div className="App">
+      <div className="App">
         <Navi />
         <Container className="main">
           <Dashboard />
         </Container>
-    </div>
+      </div>
+  
   );
 }
 
