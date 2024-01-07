@@ -7,4 +7,8 @@ export default class CarService{
     getCarById(carId){
         return axios.get(`http://localhost:8080/api/cars/${carId}`)
     }
+
+    addCar(car){
+        return axios.post(`http://localhost:8080/api/cars`, car)
+    }
 }
